@@ -3,18 +3,33 @@ import React from "react";
 
 const Stats = ({ goal, progress, remaining }) => {
 	return (
-		<View className="flex flex-row gap-8">
-			<View>
-				<Text>Goal:</Text>
-				<Text>{goal}</Text>
+		<View className="">
+			<View className="flex flex-row gap-8 justify-center items-center">
+				<View>
+					<Text className="text-xl font-semibold">
+						Goal:
+					</Text>
+					<Text className="text-3xl tracking-widest">
+						{goal}
+					</Text>
+				</View>
+				<View className="">
+					<Text className="text-xl font-semibold">
+						Remaining:
+					</Text>
+					<Text className="text-3xl tracking-widest">
+						{remaining}
+					</Text>
+				</View>
 			</View>
-			<View>
-				<Text>Progress:</Text>
-				<Text>{progress}</Text>
-			</View>
-			<View>
-				<Text>Remaining:</Text>
-				<Text>{remaining}</Text>
+
+			<View className="mt-10 justify-center items-center">
+				<Text className="text-xl font-semibold">
+					Progress:
+				</Text>
+				<Text className="text-3xl tracking-widest">
+					{progress}
+				</Text>
 			</View>
 		</View>
 	);

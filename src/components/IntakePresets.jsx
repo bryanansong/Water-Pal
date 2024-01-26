@@ -4,7 +4,7 @@ import { intakePresets } from "../constants";
 
 const IntakePresets = ({ incrementIntake }) => {
 	return (
-		<View className="flex flex-row mx-5 my-20">
+		<View className="flex flex-row mx-5 mt-10">
 			{intakePresets.map((preset) => (
 				<TouchableOpacity
 					key={preset.label}

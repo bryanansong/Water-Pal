@@ -31,10 +31,6 @@ export default function App() {
 				remaining={currentGoal - currentIntake}
 			/>
 
-			<Text className=" mt-10 text-3xl tracking-widest">
-				{currentIntake} ml
-			</Text>
-
 			<IntakePresets incrementIntake={incrementIntake} />
 
 			<StatusBar style="auto" />
