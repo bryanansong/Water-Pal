@@ -3,7 +3,7 @@ import React from "react";
 
 const Nav = () => {
 	return (
-		<View className="flex items-start bg-slate-500">
+		<View className="flex items-center justify-center bg-sky-700 py-10">
 			<Text>Nav Bar</Text>
 		</View>
 	);

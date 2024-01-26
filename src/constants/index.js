@@ -1,6 +1,7 @@
 // Water intake goals in milliliters
 const dailyGoal = 2000;
 const weeklyGoal = 14000;
+const currentStreak = 10;
 
 // Water measurement units
 const milliliters = "ml";
@@ -45,6 +46,7 @@ const congratulationsMessage =
 export {
 	dailyGoal,
 	weeklyGoal,
+	currentStreak,
 	milliliters,
 	liters,
 	intakePresets,
