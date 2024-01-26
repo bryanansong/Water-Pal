@@ -1,3 +1,6 @@
+// User Information
+const userName = "";
+
 // Water intake goals in milliliters
 const dailyGoal = 2000;
 const weeklyGoal = 14000;
@@ -44,6 +47,7 @@ const congratulationsMessage =
 
 // Exporting the constants
 export {
+	userName,
 	dailyGoal,
 	weeklyGoal,
 	currentStreak,
