@@ -1,34 +1,35 @@
 import { StatusBar } from "expo-status-bar";
-import { Button, Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import { useState } from "react";
-import Nav from "./components/Nav";
-import { intakePresets } from "./constants";
+import Nav from "./src/components/Nav";
+import { dailyGoal } from "./constants";
+import RingProgress from "./src/components/RingProgress";
+import IntakePresets from "./src/components/IntakePresets";
 
 export default function App() {
 	const [currentIntake, setCurrentIntake] = useState(0);
 
+	const incrementIntake = (incrementValue) => {
+		setCurrentIntake(currentIntake + incrementValue);
+	};
+
 	return (
-		<View className="flex flex-1 items-center justify-center bg-sky-200">
+		<View className="flex flex-col flex-1 items-center justify-center bg-sky-200">
 			<Nav />
-			<Text className="text-3xl tracking-widest">
+
+			<RingProgress
+				radius={150}
+				strokeWidth={50}
+				progress={currentIntake / dailyGoal}
+			/>
+
+			{/* <Stats /> */}
+
+			<Text className=" mt-10 text-3xl tracking-widest">
 				{currentIntake} ml
 			</Text>
 
-			<View className="flex flex-row">
-				{intakePresets.map((preset) => (
-					<TouchableOpacity
-						key={preset.label}
-						className="flex flex-row ring-8 ring-black rounded-md p-2 m-2 bg-sky-700"
-						onPress={() => {
-							setCurrentIntake(
-								currentIntake + preset.volume
-							);
-						}}
-					>
-						<Text>{preset.volume}ml</Text>
-					</TouchableOpacity>
-				))}
-			</View>
+			<IntakePresets incrementIntake={incrementIntake} />
 
 			<StatusBar style="auto" />
 		</View>

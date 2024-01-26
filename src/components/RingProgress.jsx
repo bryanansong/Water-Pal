@@ -10,7 +10,7 @@ import { AntDesign } from "@expo/vector-icons";
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-const color = "#EE0F55";
+const color = "#0284C7";
 
 const RingProgress = ({
 	radius = 100,
@@ -29,13 +29,14 @@ const RingProgress = ({
 		originX: radius,
 		originY: radius,
 		strokeWidth: strokeWidth,
+		fill: "transparent",
 		stroke: color,
 		strokeLinecap: "round",
 		rotation: "-90",
 	};
 
 	useEffect(() => {
-		fill.value = withTiming(progress, { duration: 1500 });
+		fill.value = withTiming(progress, { duration: 1400 });
 	}, [progress]);
 	const animatedProps = useAnimatedProps(() => ({
 		strokeDasharray: [circumference * fill.value, circumference],
@@ -62,10 +63,11 @@ const RingProgress = ({
 					opacity={0.4}
 				/>
 			</SVG>
+
 			<AntDesign
 				name="arrowright"
 				size={strokeWidth * 0.7}
-				color="black"
+				color="white"
 				style={{
 					position: "absolute",
 					alignSelf: "center",
