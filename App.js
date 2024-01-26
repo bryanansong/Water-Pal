@@ -13,16 +13,6 @@ import IntakePresets from "./src/components/IntakePresets";
 import Stats from "./src/components/Stats";
 
 export default function App() {
-	// Load fonts
-	let [fontsLoaded] = useFonts({
-		SpaceMono_400Regular,
-		SpaceMono_700Bold,
-	});
-
-	if (!fontsLoaded) {
-		return null;
-	}
-
 	const [currentIntake, setCurrentIntake] = useState(0);
 	const currentGoal = dailyGoal;
 
