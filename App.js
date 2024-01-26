@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
+import { SafeAreaView, Text, View } from "react-native";
 import { useState } from "react";
 import Nav from "./src/components/Nav";
 import { dailyGoal } from "./src/constants";
@@ -16,7 +16,7 @@ export default function App() {
 	};
 
 	return (
-		<View className="flex flex-1">
+		<SafeAreaView className="flex flex-1 bg-sky-700">
 			<Nav />
 
 			<View className="flex flex-col flex-1 items-center justify-center bg-sky-200">
@@ -36,6 +36,6 @@ export default function App() {
 			</View>
 
 			<StatusBar style="auto" />
-		</View>
+		</SafeAreaView>
 	);
 }
