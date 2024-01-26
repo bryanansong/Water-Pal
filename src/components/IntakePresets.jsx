@@ -1,10 +1,10 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { intakePresets } from "../../constants";
+import { intakePresets } from "../constants";
 
 const IntakePresets = ({ incrementIntake }) => {
 	return (
-		<View className="flex flex-row mx-5 my-20">
+		<View className="flex flex-row mx-5 mt-10">
 			{intakePresets.map((preset) => (
 				<TouchableOpacity
 					key={preset.label}

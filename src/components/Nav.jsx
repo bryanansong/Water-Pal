@@ -3,8 +3,8 @@ import React from "react";
 
 const Nav = () => {
 	return (
-		<View className="">
-			<Text>Nav</Text>
+		<View className="flex items-start bg-slate-500">
+			<Text>Nav Bar</Text>
 		</View>
 	);
 };
