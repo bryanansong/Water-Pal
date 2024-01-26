@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { intakePresets } from "../../constants";
+import { intakePresets } from "../constants";
 
 const IntakePresets = ({ incrementIntake }) => {
 	return (
