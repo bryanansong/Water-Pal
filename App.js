@@ -17,6 +17,7 @@ export default function App() {
 			<View className="flex flex-row">
 				{intakePresets.map((preset) => (
 					<TouchableOpacity
+						key={preset.label}
 						className="flex flex-row ring-8 ring-black rounded-md p-2 m-2 bg-sky-700"
 						onPress={() => {
 							setCurrentIntake(

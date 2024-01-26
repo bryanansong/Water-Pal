@@ -10,14 +10,17 @@ const liters = "l";
 const intakePresets = [
 	{
 		volume: 250,
+		label: "250ml",
 		unit: "milliliters",
 	},
 	{
 		volume: 500,
+		label: "500ml",
 		unit: "milliliters",
 	},
 	{
 		volume: 750,
+		label: "750ml",
 		unit: "milliliters",
 	},
 ];
