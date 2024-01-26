@@ -1,6 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
+import { SafeAreaView, Text, View } from "react-native";
 import { useState } from "react";
+import {
+	useFonts,
+	SpaceMono_400Regular,
+	SpaceMono_700Bold,
+} from "@expo-google-fonts/space-mono";
 import Nav from "./src/components/Nav";
 import { dailyGoal } from "./src/constants";
 import RingProgress from "./src/components/RingProgress";
@@ -16,24 +21,26 @@ export default function App() {
 	};
 
 	return (
-		<View className="flex flex-col flex-1 items-center justify-center bg-sky-200">
+		<SafeAreaView className="flex flex-1 bg-sky-500">
 			<Nav />
 
-			<RingProgress
-				radius={150}
-				strokeWidth={50}
-				progress={currentIntake / dailyGoal}
-			/>
+			<View className="flex flex-col flex-1 items-center justify-center bg-sky-200">
+				<RingProgress
+					radius={150}
+					strokeWidth={50}
+					progress={currentIntake / dailyGoal}
+				/>
 
-			<Stats
-				goal={currentGoal}
-				progress={currentIntake}
-				remaining={currentGoal - currentIntake}
-			/>
+				<Stats
+					goal={currentGoal}
+					progress={currentIntake}
+					remaining={currentGoal - currentIntake}
+				/>
 
-			<IntakePresets incrementIntake={incrementIntake} />
+				<IntakePresets incrementIntake={incrementIntake} />
+			</View>
 
 			<StatusBar style="auto" />
-		</View>
+		</SafeAreaView>
 	);
 }
