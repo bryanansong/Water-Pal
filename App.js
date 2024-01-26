@@ -16,22 +16,24 @@ export default function App() {
 	};
 
 	return (
-		<View className="flex flex-col flex-1 items-center justify-center bg-sky-200">
+		<View className="flex flex-1">
 			<Nav />
 
-			<RingProgress
-				radius={150}
-				strokeWidth={50}
-				progress={currentIntake / dailyGoal}
-			/>
+			<View className="flex flex-col flex-1 items-center justify-center bg-sky-200">
+				<RingProgress
+					radius={150}
+					strokeWidth={50}
+					progress={currentIntake / dailyGoal}
+				/>
 
-			<Stats
-				goal={currentGoal}
-				progress={currentIntake}
-				remaining={currentGoal - currentIntake}
-			/>
+				<Stats
+					goal={currentGoal}
+					progress={currentIntake}
+					remaining={currentGoal - currentIntake}
+				/>
 
-			<IntakePresets incrementIntake={incrementIntake} />
+				<IntakePresets incrementIntake={incrementIntake} />
+			</View>
 
 			<StatusBar style="auto" />
 		</View>
