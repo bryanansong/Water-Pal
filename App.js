@@ -6,40 +6,14 @@ import {
 	SpaceMono_400Regular,
 	SpaceMono_700Bold,
 } from "@expo-google-fonts/space-mono";
-import Nav from "./src/components/Nav";
-import { dailyGoal } from "./src/constants";
-import RingProgress from "./src/components/RingProgress";
-import IntakePresets from "./src/components/IntakePresets";
-import Stats from "./src/components/Stats";
+import Home from "./src/screens/home/home";
+import Settings from "./src/screens/settings/Settings";
 
 export default function App() {
-	const [currentIntake, setCurrentIntake] = useState(0);
-	const currentGoal = dailyGoal;
-
-	const incrementIntake = (incrementValue) => {
-		setCurrentIntake(currentIntake + incrementValue);
-	};
-
 	return (
-		<SafeAreaView className="flex flex-1 bg-sky-500">
-			<Nav />
-
-			<View className="flex flex-col flex-1 items-center justify-center bg-sky-200">
-				<RingProgress
-					radius={150}
-					strokeWidth={50}
-					progress={currentIntake / dailyGoal}
-				/>
-
-				<Stats
-					goal={currentGoal}
-					progress={currentIntake}
-					remaining={currentGoal - currentIntake}
-				/>
-
-				<IntakePresets incrementIntake={incrementIntake} />
-			</View>
-
+		<SafeAreaView>
+			{/* <Home /> */}
+			<Settings />
 			<StatusBar style="auto" />
 		</SafeAreaView>
 	);
