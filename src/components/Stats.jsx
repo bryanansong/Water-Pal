@@ -3,18 +3,18 @@ import React from "react";
 
 const Stats = ({ goal, progress, remaining }) => {
 	return (
-		<View className="flex flex-row flex-wrap gap-x-8 mb-16">
+		<View className="flex flex-row flex-wrap justify-around rounded-xl p-3 mb-12 bg-sky-100">
 			<View>
 				<Text className="text-xl font-semibold">Goal:</Text>
-				<Text className="text-3xl tracking-widest">
+				<Text className="text-2xl tracking-widest">
 					{goal}
 				</Text>
 			</View>
-			<View className="justify-center items-center">
+			<View className="mx-6">
 				<Text className="text-xl font-semibold">
 					Progress:
 				</Text>
-				<Text className="text-3xl tracking-widest">
+				<Text className="text-2xl tracking-widest">
 					{progress}
 				</Text>
 			</View>
@@ -22,7 +22,7 @@ const Stats = ({ goal, progress, remaining }) => {
 				<Text className="text-xl font-semibold">
 					Remaining:
 				</Text>
-				<Text className="text-3xl tracking-widest">
+				<Text className="text-2xl tracking-widest">
 					{remaining}
 				</Text>
 			</View>

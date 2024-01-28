@@ -14,11 +14,19 @@ const Home = ({ navigation }) => {
 	const currentGoal = dailyGoal;
 
 	const incrementIntake = (incrementValue) => {
-		setCurrentIntake(currentIntake + incrementValue);
+		setCurrentIntake(
+			currentIntake + incrementValue > currentGoal
+				? currentGoal
+				: currentIntake + incrementValue
+		);
 	};
 
 	const decrementIntake = (decrementValue) => {
-		setCurrentIntake(currentIntake - decrementValue);
+		setCurrentIntake(
+			currentIntake - decrementValue < 0
+				? 0
+				: currentIntake - decrementValue
+		);
 	};
 
 	const updateCanAddIntake = () => setCanAddIntake(!canAddIntake);
@@ -27,7 +35,7 @@ const Home = ({ navigation }) => {
 		<SafeAreaView className="flex flex-col h-screen bg-sky-200">
 			<Nav navigation={navigation} />
 
-			<View className="flex flex-col flex-1 items-center mt-8 bg-sky-200">
+			<View className="flex flex-col flex-1 items-center mt-5 bg-sky-200">
 				<Stats
 					goal={currentGoal}
 					progress={currentIntake}
