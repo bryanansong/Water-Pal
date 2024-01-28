@@ -12,7 +12,9 @@ const IntakePresets = ({
 			{intakePresets.map((preset) => (
 				<TouchableOpacity
 					key={preset.label}
-					className=" flex flex-row rounded-md p-3 m-2 bg-sky-600 shadow-md  flex-wrap"
+					className={`flex flex-row rounded-md p-3 m-2 ${
+						canAddIntake ? "bg-sky-600" : "bg-red-500"
+					} shadow-md  flex-wrap`}
 					onPress={() => {
 						canAddIntake
 							? incrementIntake(preset.volume)
