@@ -10,7 +10,7 @@ const Stats = ({ goal, progress, remaining }) => {
 					{goal}
 				</Text>
 			</View>
-			<View className="justify-center items-center">
+			<View className="justify-center">
 				<Text className="text-xl font-semibold">
 					Progress:
 				</Text>
