@@ -1,46 +1,34 @@
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView, Text, View } from "react-native";
-import { useState } from "react";
+import { SafeAreaView } from "react-native";
 import {
 	useFonts,
 	SpaceMono_400Regular,
 	SpaceMono_700Bold,
 } from "@expo-google-fonts/space-mono";
-import Nav from "./src/components/Nav";
-import { dailyGoal } from "./src/constants";
-import RingProgress from "./src/components/RingProgress";
-import IntakePresets from "./src/components/IntakePresets";
-import Stats from "./src/components/Stats";
+import Home from "./src/screens/home/home";
+import Settings from "./src/screens/settings/Settings";
+
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-	const [currentIntake, setCurrentIntake] = useState(0);
-	const currentGoal = dailyGoal;
-
-	const incrementIntake = (incrementValue) => {
-		setCurrentIntake(currentIntake + incrementValue);
-	};
-
 	return (
-		<SafeAreaView className="flex flex-1 bg-sky-500">
-			<Nav />
-
-			<View className="flex flex-col flex-1 items-center justify-center bg-sky-200">
-				<RingProgress
-					radius={150}
-					strokeWidth={50}
-					progress={currentIntake / dailyGoal}
+		<NavigationContainer>
+			<Stack.Navigator initialRouteName="Home">
+				<Stack.Screen
+					name="Home"
+					component={Home}
+					options={{ headerShown: false }}
 				/>
-
-				<Stats
-					goal={currentGoal}
-					progress={currentIntake}
-					remaining={currentGoal - currentIntake}
+				<Stack.Screen
+					name="Settings"
+					component={Settings}
+					options={{ headerTransparent: true }}
 				/>
-
-				<IntakePresets incrementIntake={incrementIntake} />
-			</View>
-
+			</Stack.Navigator>
 			<StatusBar style="auto" />
-		</SafeAreaView>
+		</NavigationContainer>
 	);
 }

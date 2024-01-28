@@ -1,26 +1,35 @@
-import { View, Text } from "react-native";
+import {
+	View,
+	Text,
+	Button,
+	Touchable,
+	TouchableOpacity,
+} from "react-native";
 import React from "react";
 import { currentStreak, userName } from "../constants";
+import { Feather } from "@expo/vector-icons";
 
-const Nav = () => {
+const Nav = ({ navigation }) => {
 	return (
-		<View className="flex flex-row items-baseline justify-between px-6 bg-sky-500 py-2">
-			<View className="flex flex-col">
+		<View className="flex flex-row items-center justify-between px-6 py-4 bg-sky-500">
+			<View className="flex flex-row">
 				<Text className="text-xl text-white font-bold">
-					Streak:
+					Streak:{" "}
 				</Text>
 				<Text className="text-2xl text-white font-bold">
 					🔥 {currentStreak}
 				</Text>
 			</View>
-			<View className="flex flex-col items-end">
-				<Text className="text-white text-xl font-semi-bold">
-					Welcome
-				</Text>
-				<Text className="text-white text-2xl font-bold">
-					{userName ? userName : "User"}!
-				</Text>
-			</View>
+			<TouchableOpacity
+				onPress={() => navigation.navigate("Settings")}
+				className="m"
+			>
+				<Feather
+					name="settings"
+					size={35}
+					color="white"
+				/>
+			</TouchableOpacity>
 		</View>
 	);
 };
