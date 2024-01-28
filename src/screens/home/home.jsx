@@ -6,14 +6,24 @@ import Stats from "../../components/Stats";
 import IntakePresets from "../../components/IntakePresets";
 import Nav from "../../components/Nav";
 import { SafeAreaView } from "react-native-safe-area-context";
+import PresetToggleButton from "../../components/PresetToggleButton";
 
 const Home = ({ navigation }) => {
 	const [currentIntake, setCurrentIntake] = useState(0);
 	const currentGoal = dailyGoal;
+	const [canAddIntake, setCanAddIntake] = useState(true);
 
 	const incrementIntake = (incrementValue) => {
 		setCurrentIntake(currentIntake + incrementValue);
 	};
+
+	const decrementIntake = (decrementValue) => {
+		setCurrentIntake(currentIntake + decrementValue);
+	};
+
+	const updateCanAddIntake = () => setCanAddIntake(!canAddIntake);
+
+	console.warn(canAddIntake);
 
 	return (
 		<SafeAreaView className="flex flex-col h-screen bg-sky-200">
@@ -32,7 +42,23 @@ const Home = ({ navigation }) => {
 					progress={currentIntake / dailyGoal}
 				/>
 
-				<IntakePresets incrementIntake={incrementIntake} />
+				<IntakePresets
+					incrementIntake={incrementIntake}
+					decrementIntake={decrementIntake}
+				/>
+
+				<View className="flex flex-row mt-10 justify-center">
+					<PresetToggleButton
+						operation={"add"}
+						canAddIntake={canAddIntake}
+						updateCanAddIntake={updateCanAddIntake}
+					/>
+					<PresetToggleButton
+						operation={"delete"}
+						canAddIntake={!canAddIntake}
+						updateCanAddIntake={updateCanAddIntake}
+					/>
+				</View>
 			</View>
 		</SafeAreaView>
 	);
