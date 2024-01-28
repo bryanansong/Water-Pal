@@ -14,11 +14,19 @@ const Home = ({ navigation }) => {
 	const currentGoal = dailyGoal;
 
 	const incrementIntake = (incrementValue) => {
-		setCurrentIntake(currentIntake + incrementValue);
+		setCurrentIntake(
+			currentIntake + incrementValue > currentGoal
+				? currentGoal
+				: currentIntake + incrementValue
+		);
 	};
 
 	const decrementIntake = (decrementValue) => {
-		setCurrentIntake(currentIntake - decrementValue);
+		setCurrentIntake(
+			currentIntake - decrementValue < 0
+				? 0
+				: currentIntake - decrementValue
+		);
 	};
 
 	const updateCanAddIntake = () => setCanAddIntake(!canAddIntake);
