@@ -49,7 +49,7 @@ const congratulationsMessage =
 // Measurement and Goals
 const measurementAndGoals = [
 	{ label: "Units of Measurement", value: "milliliters" },
-	{ label: "Daily Goal", value: "2000 ml" },
+	{ label: "Daily Goal", value: `${dailyGoal} ml` },
 ];
 
 // Reminders
@@ -62,7 +62,7 @@ const reminders = [
 // Progress and Tracking
 const progressAndTracking = [
 	{ label: "Water Intake History" },
-	{ label: "Achievement Badges" },
+	// { label: "Achievement Badges" },
 ];
 
 // Personalization
@@ -77,25 +77,10 @@ const userProfile = [
 	{ label: "Account Settings" },
 ];
 
-// Integration and Sharing
-const integrationAndSharing = [
-	{ label: "Integration with Health Apps" },
-	{ label: "Privacy Settings" },
-];
-
 // App Information
 const appInformation = [
 	{ label: "About Page" },
 	{ label: "Terms of Service and Privacy Policy" },
-];
-
-// User Support
-const userSupport = [{ label: "Feedback and Support" }];
-
-// Advanced Options
-const advancedOptions = [
-	{ label: "Data Export" },
-	{ label: "Reset to Default" },
 ];
 
 const settings = [
@@ -111,24 +96,14 @@ const settings = [
 		sectionName: "Progress & Tracking",
 		sectionOptions: progressAndTracking,
 	},
-	{
-		sectionName: "Personalization",
-		sectionOptions: personalization,
-	},
-	{ sectionName: "User Profile", sectionOptions: userProfile },
-	{
-		sectionName: "Integration & Sharing",
-		sectionOptions: integrationAndSharing,
-	},
-	{
-		sectionName: "App Information",
-		sectionOptions: appInformation,
-	},
-	{ sectionName: "userSupport", sectionOptions: userSupport },
-	{
-		sectionName: "Advanced Options",
-		sectionOptions: advancedOptions,
-	},
+	// {
+	// 	sectionName: "Personalization",
+	// 	sectionOptions: personalization,
+	// },
+	// {
+	// 	sectionName: "App Information",
+	// 	sectionOptions: appInformation,
+	// },
 ];
 
 // Exporting the constants

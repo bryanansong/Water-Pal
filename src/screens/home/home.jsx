@@ -27,7 +27,7 @@ const Home = ({ navigation }) => {
 		<SafeAreaView className="flex flex-col h-screen bg-sky-200">
 			<Nav navigation={navigation} />
 
-			<View className="flex flex-col flex-1 items-center mt-8 bg-sky-200">
+			<View className="flex flex-col flex-1 items-center mt-5 bg-sky-200">
 				<Stats
 					goal={currentGoal}
 					progress={currentIntake}
