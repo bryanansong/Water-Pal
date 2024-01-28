@@ -10,15 +10,15 @@ import { AntDesign } from "@expo/vector-icons";
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-const color = "#0284C7";
-
 const RingProgress = ({
 	radius = 100,
 	strokeWidth = 35,
 	progress,
+	canAddIntake,
 }) => {
 	const innerRadius = radius - strokeWidth / 2;
 	const circumference = 2 * Math.PI * innerRadius;
+	const color = canAddIntake ? "#0284C7" : "#f44336";
 
 	const fill = useSharedValue(0);
 

@@ -23,8 +23,6 @@ const Home = ({ navigation }) => {
 
 	const updateCanAddIntake = () => setCanAddIntake(!canAddIntake);
 
-	console.warn(canAddIntake);
-
 	return (
 		<SafeAreaView className="flex flex-col h-screen bg-sky-200">
 			<Nav navigation={navigation} />
@@ -40,6 +38,7 @@ const Home = ({ navigation }) => {
 					radius={150}
 					strokeWidth={50}
 					progress={currentIntake / dailyGoal}
+					canAddIntake={canAddIntake}
 				/>
 
 				<IntakePresets
