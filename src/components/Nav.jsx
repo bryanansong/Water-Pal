@@ -11,7 +11,7 @@ import { Feather } from "@expo/vector-icons";
 
 const Nav = ({ navigation }) => {
 	return (
-		<View className="flex flex-row items-center justify-between px-6 py-4 ">
+		<View className="flex flex-row items-center justify-between px-6 py-4">
 			<View className="flex flex-row">
 				<Text className="text-xl text-black font-bold">
 					Streak:{" "}
@@ -22,7 +22,6 @@ const Nav = ({ navigation }) => {
 			</View>
 			<TouchableOpacity
 				onPress={() => navigation.navigate("Settings")}
-				className="m"
 			>
 				<Feather
 					name="settings"
