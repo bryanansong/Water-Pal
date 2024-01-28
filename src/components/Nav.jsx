@@ -17,7 +17,7 @@ const Nav = ({ navigation }) => {
 					Streak:{" "}
 				</Text>
 				<Text className="text-2xl text-black font-bold">
-					🔥 {currentStreak} days
+					🔥 {currentStreak}
 				</Text>
 			</View>
 			<TouchableOpacity
