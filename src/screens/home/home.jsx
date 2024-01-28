@@ -10,15 +10,15 @@ import PresetToggleButton from "../../components/PresetToggleButton";
 
 const Home = ({ navigation }) => {
 	const [currentIntake, setCurrentIntake] = useState(0);
-	const currentGoal = dailyGoal;
 	const [canAddIntake, setCanAddIntake] = useState(true);
+	const currentGoal = dailyGoal;
 
 	const incrementIntake = (incrementValue) => {
 		setCurrentIntake(currentIntake + incrementValue);
 	};
 
 	const decrementIntake = (decrementValue) => {
-		setCurrentIntake(currentIntake + decrementValue);
+		setCurrentIntake(currentIntake - decrementValue);
 	};
 
 	const updateCanAddIntake = () => setCanAddIntake(!canAddIntake);
@@ -45,6 +45,7 @@ const Home = ({ navigation }) => {
 				<IntakePresets
 					incrementIntake={incrementIntake}
 					decrementIntake={decrementIntake}
+					canAddIntake={canAddIntake}
 				/>
 
 				<View className="flex flex-row mt-10 justify-center">
