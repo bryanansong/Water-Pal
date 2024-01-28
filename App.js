@@ -25,6 +25,7 @@ export default function App() {
 				<Stack.Screen
 					name="Settings"
 					component={Settings}
+					options={{ headerTransparent: true }}
 				/>
 			</Stack.Navigator>
 			<StatusBar style="auto" />
