@@ -16,7 +16,7 @@ const Home = ({ navigation }) => {
 	};
 
 	return (
-		<SafeAreaView className="flex flex-col h-screen bg-sky-500">
+		<SafeAreaView className="flex flex-col h-screen bg-sky-200">
 			<Nav navigation={navigation} />
 
 			<View className="flex flex-col flex-1 items-center justify-center bg-sky-200">
