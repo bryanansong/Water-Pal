@@ -16,20 +16,20 @@ const Home = ({ navigation }) => {
 	};
 
 	return (
-		<SafeAreaView className="flex flex-col h-screen bg-sky-500">
+		<SafeAreaView className="flex flex-col h-screen bg-sky-200">
 			<Nav navigation={navigation} />
 
-			<View className="flex flex-col flex-1 items-center justify-center bg-sky-200">
-				<RingProgress
-					radius={150}
-					strokeWidth={50}
-					progress={currentIntake / dailyGoal}
-				/>
-
+			<View className="flex flex-col flex-1 items-center mt-8 bg-sky-200">
 				<Stats
 					goal={currentGoal}
 					progress={currentIntake}
 					remaining={currentGoal - currentIntake}
+				/>
+
+				<RingProgress
+					radius={150}
+					strokeWidth={50}
+					progress={currentIntake / dailyGoal}
 				/>
 
 				<IntakePresets incrementIntake={incrementIntake} />
