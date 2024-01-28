@@ -1,10 +1,4 @@
-import {
-	View,
-	Text,
-	Button,
-	Touchable,
-	TouchableOpacity,
-} from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { currentStreak, userName } from "../constants";
 import { Feather } from "@expo/vector-icons";
