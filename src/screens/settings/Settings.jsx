@@ -1,6 +1,12 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import {
+	View,
+	Text,
+	TouchableOpacity,
+	ScrollView,
+} from "react-native";
 import React from "react";
 import { Image } from "expo-image";
+import { settings } from "../../constants";
 
 const blurhash =
 	"|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
@@ -28,10 +34,36 @@ const Settings = () => {
 				</View>
 
 				<View className="flex flex-col">
-					<Text className="text-xl mb-3">
-						Measurement & Goals
-					</Text>
-					<View className="flex-col px-5 py-3 rounded-xl bg-sky-100">
+					{settings.map((setting) => (
+						<>
+							<Text className="text-xl mb-3">
+								{setting.sectionName}
+							</Text>
+							<View className="flex-col px-5 py-3 rounded-xl bg-sky-100">
+								{setting.sectionOptions.map(
+									(option) => (
+										<TouchableOpacity
+											key={option.label}
+											className="px-3 py-2 rounded-lg border-b-[1px] border-slate-400/40"
+										>
+											<View className="flex-row justify-between">
+												<Text className="">
+													{option.label}
+												</Text>
+												<Text className="text-blue-800">
+													{option.value
+														? option.value
+														: "Not set"}
+												</Text>
+											</View>
+										</TouchableOpacity>
+									)
+								)}
+							</View>
+						</>
+					))}
+
+					<View>
 						<TouchableOpacity className="px-3 py-2 rounded-lg border-b-[1px] border-slate-400/40">
 							<Text>Weight</Text>
 						</TouchableOpacity>
