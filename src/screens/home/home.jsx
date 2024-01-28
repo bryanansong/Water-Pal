@@ -5,6 +5,7 @@ import RingProgress from "../../components/RingProgress";
 import Stats from "../../components/Stats";
 import IntakePresets from "../../components/IntakePresets";
 import Nav from "../../components/Nav";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Home = () => {
 	const [currentIntake, setCurrentIntake] = useState(0);
@@ -15,7 +16,7 @@ const Home = () => {
 	};
 
 	return (
-		<View className="flex flex-col h-screen bg-sky-500">
+		<SafeAreaView className="flex flex-col h-screen bg-sky-500">
 			<Nav />
 
 			<View className="flex flex-col flex-1 items-center justify-center bg-sky-200">
@@ -33,7 +34,7 @@ const Home = () => {
 
 				<IntakePresets incrementIntake={incrementIntake} />
 			</View>
-		</View>
+		</SafeAreaView>
 	);
 };
 
