@@ -32,6 +32,8 @@ Water Pal is a React Native mobile application designed to help you stay hydrate
 -   **User-Friendly Interface:** Simple and intuitive design for a seamless user experience. 🎨
 -   **Preset Intake Values:** Choose from preset water intake values for quick tracking. 🤳
 
+<img src="/assets/Images/WaterPalImg1.PNG" alt="Image Alt Text" width="50%"/>
+
 ![](/assets/Images/WaterPalImg1.PNG)
 ![](/assets/Images/WaterPalImg2.PNG)
 ![](/assets/Images/WaterPalImg3.PNG)
