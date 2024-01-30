@@ -23,7 +23,9 @@ Welcome to Water Pal – Your Personal Hydration Tracker! 💦
 
 Water Pal is a React Native mobile application designed to help you stay hydrated throughout the day. Track your water intake, receive reminders, and work towards a healthier lifestyle. 📱
 
-![App Screenshot/GIF Here](/assets/Images/WaterPalGif.gif)
+<p align="center">
+  <img src="/assets/Images/WaterPalGif.gif" width="300" alt="GIF of the home screen and settings screen of water pal"/>
+</p>
 
 ## Features
 
