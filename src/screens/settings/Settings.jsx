@@ -35,7 +35,10 @@ const Settings = () => {
 
 				<View className="flex flex-col">
 					{settings.map((setting) => (
-						<View className="mt-5">
+						<View
+							key={setting.sectionName}
+							className="mt-5"
+						>
 							<Text className="text-xl mb-3">
 								{setting.sectionName}
 							</Text>
