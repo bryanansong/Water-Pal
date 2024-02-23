@@ -10,6 +10,7 @@ import { useState } from "react";
 import firebaseAuth from "../../../configurations/firebase/firebaseConfig";
 import {
 	createUserWithEmailAndPassword,
+	initializeAuth,
 	signInWithEmailAndPassword,
 } from "@firebase/auth";
 
@@ -84,6 +85,10 @@ const Login = () => {
 					<Button
 						onPress={signIn}
 						title="Sign In"
+					></Button>
+					<Button
+						onPress={signUp}
+						title="Create Account"
 					></Button>
 				</>
 			)}
