@@ -7,6 +7,7 @@ import {
 } from "@expo-google-fonts/space-mono";
 import Home from "./src/screens/home/home";
 import Settings from "./src/screens/settings/Settings";
+import Login from "./src/screens/login/login";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -16,7 +17,12 @@ const Stack = createNativeStackNavigator();
 export default function App() {
 	return (
 		<NavigationContainer>
-			<Stack.Navigator initialRouteName="Home">
+			<Stack.Navigator initialRouteName="Login">
+				<Stack.Screen
+					name="Login"
+					component={Login}
+					options={{ headerShown: false }}
+				/>
 				<Stack.Screen
 					name="Home"
 					component={Home}
