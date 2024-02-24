@@ -13,6 +13,7 @@ import {
 	signInWithEmailAndPassword,
 } from "@firebase/auth";
 import { firebaseAuth } from "../../../configurations/firebase/firebaseConfig";
+import { addDoc } from "firebase/firestore";
 
 const Login = () => {
 	// TODO: Change states back to default
@@ -37,17 +38,43 @@ const Login = () => {
 	const signUp = async () => {
 		setLoading(true);
 		try {
-			await createUserWithEmailAndPassword(
+			const user = await createUserWithEmailAndPassword(
 				auth,
 				email,
 				password
 			);
-			alert("Check your email for verification");
+			createUserInDatabase(user);
 		} catch (error) {
 			console.log(error);
 			alert("Registration Error: " + error.message);
 		} finally {
 			setLoading(false);
+		}
+	};
+
+	// TODO: Fix error with adding document to database
+	const createUserInDatabase = async (user) => {
+		try {
+			const userDocRef = doc(db, "users", user.user.uid);
+			alert("user", user);
+			const addUserInfo = await addDoc(userDocRef, {
+				userInfo: {
+					uid: user.user.uid,
+					username: username,
+					name: {
+						first: username.split(" ")[0],
+						last: username.split(" ")[1],
+					},
+					email: email,
+				},
+				goals: {
+					unit: "milliliters",
+					daily: 2000,
+					weekly: 14000,
+				},
+			});
+		} catch (error) {
+			console.error("Error adding document: ", error);
 		}
 	};
 
