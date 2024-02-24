@@ -15,8 +15,10 @@ import {
 import { firebaseAuth } from "../../../configurations/firebase/firebaseConfig";
 
 const Login = () => {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	// TODO: Change states back to default
+	const [username, setUsername] = useState("bryanansong");
+	const [email, setEmail] = useState("bryanansong2003@gmail.com");
+	const [password, setPassword] = useState("ferwac-4Tofgu-cebjov");
 	const [loading, setLoading] = useState(false);
 	const auth = firebaseAuth;
 
@@ -52,6 +54,17 @@ const Login = () => {
 	return (
 		<View className="flex flex-1 justify-center px-6">
 			<KeyboardAvoidingView behavior="padding">
+				<View>
+					<Text>User Name</Text>
+					<TextInput
+						value={username}
+						onChangeText={setUsername}
+						placeholder="User Name"
+						autoCapitalize="none"
+						onChange={(text) => setUsername(text)}
+						className="border border-gray-300 rounded-lg p-2"
+					/>
+				</View>
 				<View>
 					<Text>Email</Text>
 					<TextInput
