@@ -21,7 +21,7 @@ const Home = ({ navigation }) => {
 	const auth = firebaseAuth;
 
 	useEffect(() => {
-		getStoredIntake();
+		getUserInformation();
 		updateIntakes();
 	}, [
 		currentIntake,
@@ -35,7 +35,7 @@ const Home = ({ navigation }) => {
 		setCurrentGoal(userInformation?.goals.daily ?? 0);
 	};
 
-	const getStoredIntake = async () => {
+	const getUserInformation = async () => {
 		try {
 			const receivedInformation = await getDoc(
 				doc(db, "users", auth.currentUser.uid)
