@@ -86,8 +86,8 @@ const Login = () => {
 	return (
 		<View className="flex flex-1 justify-center px-6">
 			<KeyboardAvoidingView behavior="padding">
-				<View className="flex-row gap-3">
-					<View>
+				<View className="flex-row gap-3 w-full">
+					<View className="flex-1">
 						<Text>First Name</Text>
 						<TextInput
 							value={firstName}
@@ -98,7 +98,7 @@ const Login = () => {
 							className="border border-gray-300 rounded-lg p-2"
 						/>
 					</View>
-					<View>
+					<View className="flex-1">
 						<Text>Last Name</Text>
 						<TextInput
 							value={lastName}
