@@ -4,18 +4,58 @@ import {
 	TouchableOpacity,
 	ScrollView,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image } from "expo-image";
 import { settings } from "../../constants";
 import SettingsCard from "../../components/SettingsCard";
 import SignOutCard from "../../components/SignOutCard";
+import {
+	db,
+	firebaseAuth,
+} from "../../../configurations/firebase/firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
 
 const blurhash =
 	"|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
 
+// TODO: Add intake presets editing
+// TODO: Add history of user's intake
+
 const Settings = () => {
+	const [userInformation, setUserInformation] = useState(null);
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [unit, setUnit] = useState("");
+	const [dailyGoal, setDailyGoal] = useState(0);
+	// const [history, setHistory] = useState([]);
+	// const [intakePresets, setIntakePresets] = useState([]);
+	const auth = firebaseAuth;
+
+	useEffect(() => {
+		getUserInformation();
+		updatePreferences();
+	}, [auth, userInformation, , unit, dailyGoal]);
+
+	const updatePreferences = () => {
+		setDailyGoal(userInformation?.goals.daily ?? 0);
+		setUnit(userInformation?.goals.unit);
+		setFirstName(userInformation?.userInfo.name.first);
+		setLastName(userInformation?.userInfo.name.last);
+	};
+
+	const getUserInformation = async () => {
+		try {
+			const receivedInformation = await getDoc(
+				doc(db, "users", auth.currentUser.uid)
+			);
+			setUserInformation(receivedInformation.data());
+		} catch (e) {
+			console.error(e);
+		}
+	};
+
 	return (
-		<View className="h-screen bg-sky-200 pt-24">
+		<ScrollView className="h-screen bg-sky-200 pt-24">
 			<View className="flex flex-col justify-between px-8 py-4 ">
 				<View>
 					<TouchableOpacity className="flex-row px-5 py-5 rounded-xl bg-sky-100">
@@ -28,9 +68,13 @@ const Settings = () => {
 						</View>
 						<View className="ml-5">
 							<Text className="text-xl">
-								Bryan Ansong
+								{firstName} {lastName}
 							</Text>
-							<Text>Text about user</Text>
+							<Text>
+								Thank you for using Water Pal{"\n"}
+								Please send feedback to
+								bryanansong2003@gmail.com
+							</Text>
 						</View>
 					</TouchableOpacity>
 				</View>
@@ -75,7 +119,7 @@ const Settings = () => {
 				</View>
 			</View>
 			<SignOutCard />
-		</View>
+		</ScrollView>
 	);
 };
 
