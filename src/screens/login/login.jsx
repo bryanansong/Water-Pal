@@ -12,14 +12,18 @@ import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 } from "@firebase/auth";
-import { firebaseAuth } from "../../../configurations/firebase/firebaseConfig";
-import { addDoc } from "firebase/firestore";
+import {
+	db,
+	firebaseAuth,
+} from "../../../configurations/firebase/firebaseConfig";
+import { doc, setDoc } from "firebase/firestore";
 
 const Login = () => {
-	// TODO: Change states back to default
-	const [username, setUsername] = useState("bryanansong");
-	const [email, setEmail] = useState("bryanansong2003@gmail.com");
-	const [password, setPassword] = useState("ferwac-4Tofgu-cebjov");
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [username, setUsername] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
 	const auth = firebaseAuth;
 
@@ -52,18 +56,17 @@ const Login = () => {
 		}
 	};
 
-	// TODO: Fix error with adding document to database
 	const createUserInDatabase = async (user) => {
 		try {
 			const userDocRef = doc(db, "users", user.user.uid);
-			alert("user", user);
-			const addUserInfo = await addDoc(userDocRef, {
+
+			const data = {
 				userInfo: {
 					uid: user.user.uid,
 					username: username,
 					name: {
-						first: username.split(" ")[0],
-						last: username.split(" ")[1],
+						first: firstName,
+						last: lastName,
 					},
 					email: email,
 				},
@@ -72,7 +75,9 @@ const Login = () => {
 					daily: 2000,
 					weekly: 14000,
 				},
-			});
+			};
+
+			await setDoc(userDocRef, data);
 		} catch (error) {
 			console.error("Error adding document: ", error);
 		}
@@ -81,6 +86,30 @@ const Login = () => {
 	return (
 		<View className="flex flex-1 justify-center px-6">
 			<KeyboardAvoidingView behavior="padding">
+				<View className="flex-row gap-3">
+					<View>
+						<Text>First Name</Text>
+						<TextInput
+							value={firstName}
+							onChangeText={setFirstName}
+							placeholder="User Name"
+							autoCapitalize="none"
+							onChange={(text) => setFirstName(text)}
+							className="border border-gray-300 rounded-lg p-2"
+						/>
+					</View>
+					<View>
+						<Text>Last Name</Text>
+						<TextInput
+							value={lastName}
+							onChangeText={setLastName}
+							placeholder="User Name"
+							autoCapitalize="none"
+							onChange={(text) => setLastName(text)}
+							className="border border-gray-300 rounded-lg p-2"
+						/>
+					</View>
+				</View>
 				<View>
 					<Text>User Name</Text>
 					<TextInput
