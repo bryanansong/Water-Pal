@@ -12,9 +12,16 @@ import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 } from "@firebase/auth";
-import { firebaseAuth } from "../../../configurations/firebase/firebaseConfig";
+import {
+	db,
+	firebaseAuth,
+} from "../../../configurations/firebase/firebaseConfig";
+import { doc, setDoc } from "firebase/firestore";
 
 const Login = () => {
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
@@ -35,12 +42,12 @@ const Login = () => {
 	const signUp = async () => {
 		setLoading(true);
 		try {
-			await createUserWithEmailAndPassword(
+			const user = await createUserWithEmailAndPassword(
 				auth,
 				email,
 				password
 			);
-			alert("Check your email for verification");
+			createUserInDatabase(user);
 		} catch (error) {
 			console.log(error);
 			alert("Registration Error: " + error.message);
@@ -49,9 +56,71 @@ const Login = () => {
 		}
 	};
 
+	const createUserInDatabase = async (user) => {
+		try {
+			const userDocRef = doc(db, "users", user.user.uid);
+
+			const data = {
+				userInfo: {
+					uid: user.user.uid,
+					username: username,
+					name: {
+						first: firstName,
+						last: lastName,
+					},
+					email: email,
+				},
+				goals: {
+					unit: "milliliters",
+					daily: 2000,
+					weekly: 14000,
+				},
+			};
+
+			await setDoc(userDocRef, data);
+		} catch (error) {
+			console.error("Error adding document: ", error);
+		}
+	};
+
 	return (
 		<View className="flex flex-1 justify-center px-6">
 			<KeyboardAvoidingView behavior="padding">
+				<View className="flex-row gap-3 w-full">
+					<View className="flex-1">
+						<Text>First Name</Text>
+						<TextInput
+							value={firstName}
+							onChangeText={setFirstName}
+							placeholder="User Name"
+							autoCapitalize="none"
+							onChange={(text) => setFirstName(text)}
+							className="border border-gray-300 rounded-lg p-2"
+						/>
+					</View>
+					<View className="flex-1">
+						<Text>Last Name</Text>
+						<TextInput
+							value={lastName}
+							onChangeText={setLastName}
+							placeholder="User Name"
+							autoCapitalize="none"
+							onChange={(text) => setLastName(text)}
+							className="border border-gray-300 rounded-lg p-2"
+						/>
+					</View>
+				</View>
+				<View>
+					<Text>User Name</Text>
+					<TextInput
+						value={username}
+						onChangeText={setUsername}
+						placeholder="User Name"
+						autoCapitalize="none"
+						onChange={(text) => setUsername(text)}
+						className="border border-gray-300 rounded-lg p-2"
+					/>
+				</View>
 				<View>
 					<Text>Email</Text>
 					<TextInput
