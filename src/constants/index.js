@@ -1,11 +1,3 @@
-// User Information
-const userName = "";
-
-// Water intake goals in milliliters
-const dailyGoal = 2000;
-const weeklyGoal = 14000;
-const currentStreak = 10;
-
 // Water measurement units
 const milliliters = "ml";
 const liters = "l";
@@ -34,12 +26,6 @@ const intakePresets = [
 	},
 ];
 
-// Time intervals
-const minute = 60 * 1000;
-const hour = 60 * minute;
-const day = 24 * hour;
-const week = 7 * day;
-
 // Notification messages
 const reminderMessage = "Remember to drink water! 💧";
 const congratulationsMessage =
@@ -63,24 +49,6 @@ const reminders = [
 const progressAndTracking = [
 	{ label: "Water Intake History" },
 	// { label: "Achievement Badges" },
-];
-
-// Personalization
-const personalization = [
-	{ label: "Theme and Appearance" },
-	{ label: "Language Preferences" },
-];
-
-// User Profile
-const userProfile = [
-	{ label: "Profile Information" },
-	{ label: "Account Settings" },
-];
-
-// App Information
-const appInformation = [
-	{ label: "About Page" },
-	{ label: "Terms of Service and Privacy Policy" },
 ];
 
 const settings = [
@@ -108,18 +76,128 @@ const settings = [
 
 // Exporting the constants
 export {
-	userName,
-	dailyGoal,
-	weeklyGoal,
-	currentStreak,
 	milliliters,
 	liters,
 	intakePresets,
-	minute,
-	hour,
-	day,
-	week,
 	reminderMessage,
 	congratulationsMessage,
 	settings,
 };
+
+// Functions to Toggle each setting
+const navigateToEditProfile = () => {
+	navigation.navigate("EditProfile");
+};
+
+const navigateToSecurity = () => {
+	console.log("Security function");
+};
+
+const navigateToNotifications = () => {
+	console.log("Notifications function");
+};
+
+const navigateToPrivacy = () => {
+	console.log("Privacy function");
+};
+
+const navigateToSubscription = () => {
+	console.log("Subscription function");
+};
+
+const navigateToSupport = () => {
+	console.log("Support function");
+};
+
+const navigateToTermsAndPolicies = () => {
+	console.log("Terms and Policies function");
+};
+
+const navigateToFreeSpace = () => {
+	console.log("Free Space function");
+};
+
+const navigateToDateSaver = () => {
+	console.log("Date saver");
+};
+
+const navigateToReportProblem = () => {
+	console.log("Report a problem");
+};
+
+const addAccount = () => {
+	console.log("Aadd account ");
+};
+
+const logout = () => {
+	console.log("Logout");
+};
+
+// Subsections in the settings screen
+const accountItems = [
+	{
+		icon: "person-outline",
+		text: "Edit Profile",
+		action: navigateToEditProfile,
+	},
+	{
+		icon: "security",
+		text: "Security",
+		action: navigateToSecurity,
+	},
+	{
+		icon: "notifications-none",
+		text: "Notifications",
+		action: navigateToNotifications,
+	},
+	{
+		icon: "lock-outline",
+		text: "Privacy",
+		action: navigateToPrivacy,
+	},
+];
+
+const supportItems = [
+	{
+		icon: "credit-card",
+		text: "My Subscription",
+		action: navigateToSubscription,
+	},
+	{
+		icon: "help-outline",
+		text: "Help & Support",
+		action: navigateToSupport,
+	},
+	{
+		icon: "info-outline",
+		text: "Terms and Policies",
+		action: navigateToTermsAndPolicies,
+	},
+];
+
+const cacheAndCellularItems = [
+	{
+		icon: "delete-outline",
+		text: "Free up space",
+		action: navigateToFreeSpace,
+	},
+	{
+		icon: "save-alt",
+		text: "Date Saver",
+		action: navigateToDateSaver,
+	},
+];
+
+const actionsItems = [
+	{
+		icon: "outlined-flag",
+		text: "Report a problem",
+		action: navigateToReportProblem,
+	},
+	{
+		icon: "people-outline",
+		text: "Add Account",
+		action: addAccount,
+	},
+	{ icon: "logout", text: "Log out", action: logout },
+];

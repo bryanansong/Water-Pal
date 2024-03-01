@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { dailyGoal } from "../../constants";
 import RingProgress from "../../components/RingProgress";
 import Stats from "../../components/Stats";
@@ -7,11 +7,45 @@ import IntakePresets from "../../components/IntakePresets";
 import Nav from "../../components/Nav";
 import { SafeAreaView } from "react-native-safe-area-context";
 import PresetToggleButton from "../../components/PresetToggleButton";
+import {
+	db,
+	firebaseAuth,
+} from "../../../configurations/firebase/firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
 
 const Home = ({ navigation }) => {
 	const [currentIntake, setCurrentIntake] = useState(0);
 	const [canAddIntake, setCanAddIntake] = useState(true);
-	const currentGoal = dailyGoal;
+	const [userInformation, setUserInformation] = useState(null);
+	const [currentGoal, setCurrentGoal] = useState(0);
+	const auth = firebaseAuth;
+
+	useEffect(() => {
+		getUserInformation();
+		updateIntakes();
+	}, [
+		currentIntake,
+		userInformation,
+		currentGoal,
+		auth,
+		canAddIntake,
+	]);
+
+	const updateIntakes = () => {
+		setCurrentGoal(userInformation?.goals.daily ?? 0);
+	};
+
+	const getUserInformation = async () => {
+		try {
+			const receivedInformation = await getDoc(
+				doc(db, "users", auth.currentUser.uid)
+			);
+
+			setUserInformation(receivedInformation.data());
+		} catch (e) {
+			console.error(e);
+		}
+	};
 
 	const incrementIntake = (incrementValue) => {
 		setCurrentIntake(
