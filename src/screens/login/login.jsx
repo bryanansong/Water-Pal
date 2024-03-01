@@ -19,11 +19,11 @@ import {
 import { doc, setDoc } from "firebase/firestore";
 
 const Login = () => {
-	const [firstName, setFirstName] = useState("");
-	const [lastName, setLastName] = useState("");
-	const [username, setUsername] = useState("");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const [firstName, setFirstName] = useState("Bryan");
+	const [lastName, setLastName] = useState("Ansong");
+	const [username, setUsername] = useState("bryanansong");
+	const [email, setEmail] = useState("bryansong2003@gmail.com");
+	const [password, setPassword] = useState("ferwac-4Tofgu-cebjov");
 	const [loading, setLoading] = useState(false);
 	const auth = firebaseAuth;
 
