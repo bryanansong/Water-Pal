@@ -6,10 +6,7 @@ import IntakePresets from "../../components/IntakePresets";
 import Nav from "../../components/Nav";
 import { SafeAreaView } from "react-native-safe-area-context";
 import PresetToggleButton from "../../components/PresetToggleButton";
-import {
-	db,
-	firebaseAuth,
-} from "../../../configurations/firebase/firebaseConfig";
+import { db, firebaseAuth } from "../../../configurations/firebase/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 
 const Home = ({ navigation }) => {
@@ -22,13 +19,7 @@ const Home = ({ navigation }) => {
 	useEffect(() => {
 		getUserInformation();
 		updateIntakes();
-	}, [
-		currentIntake,
-		userInformation,
-		currentGoal,
-		auth,
-		canAddIntake,
-	]);
+	}, [currentIntake, userInformation, currentGoal, auth, canAddIntake]);
 
 	const updateIntakes = () => {
 		setCurrentGoal(userInformation?.goals.daily ?? 0);
@@ -56,16 +47,14 @@ const Home = ({ navigation }) => {
 
 	const decrementIntake = (decrementValue) => {
 		setCurrentIntake(
-			currentIntake - decrementValue < 0
-				? 0
-				: currentIntake - decrementValue
+			currentIntake - decrementValue < 0 ? 0 : currentIntake - decrementValue
 		);
 	};
 
 	const updateCanAddIntake = () => setCanAddIntake(!canAddIntake);
 
 	return (
-		<SafeAreaView className="flex flex-col h-screen bg-sky-200">
+		<SafeAreaView className="flex flex-col h-screen bg-sky-200 pt-5">
 			<Nav navigation={navigation} />
 
 			<View className="flex flex-col flex-1 items-center mt-5 bg-sky-200">
