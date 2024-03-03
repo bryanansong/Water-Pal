@@ -1,11 +1,26 @@
-import { View, Text, Modal } from "react-native";
+import { View, Modal, KeyboardAvoidingView, Platform } from "react-native";
 
-const SettingsModal = ({}) => {
+const SettingsModal = ({ isOpen, hasInput, children, ...rest }) => {
 	return (
-		<Modal>
-			<View>
-				<Text>Settings Modal</Text>
-			</View>
+		<Modal
+			visible={isOpen}
+			transparent
+			animationType="fade"
+			statusBarTranslucent
+			{...rest}
+		>
+			{hasInput ? (
+				<KeyboardAvoidingView
+					className="items-center justify-center flex-1 px-3 bg-zinc-900/40"
+					behavior={Platform.OS === "ios" ? "padding" : "height"}
+				>
+					{children}
+				</KeyboardAvoidingView>
+			) : (
+				<View className="items-center justify-center flex-1 px-3 bg-zinc-900/60">
+					{children}
+				</View>
+			)}
 		</Modal>
 	);
 };
