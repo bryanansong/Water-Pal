@@ -11,6 +11,7 @@ import {
 	Reminder,
 	Unit,
 	NotificationPreference,
+	Feedback,
 } from "../../components/settings";
 
 const blurhash =
@@ -55,21 +56,31 @@ const Settings = () => {
 		{
 			sectionName: "Reminders",
 			sectionOptions: [
-				{ label: "Custom Reminders" },
-				{ label: "Notification Preferences" },
+				{
+					label: "Custom Reminders",
+					action: () => setRemindersModalOpen(true),
+				},
+				{
+					label: "Notification Preferences",
+					action: () => setNotificationPreferenceModalOpen(true),
+				},
 			],
 		},
 		{
 			sectionName: "Progress & Tracking",
 			sectionOptions: [
-				{ label: "Water Intake History" },
+				{
+					label: "Water Intake History",
+					action: () => setIntakeHistoryModalOpen(true),
+				},
 				{ label: "Achievement Badges" },
 			],
 		},
 		{
 			sectionName: "Submit Feedback",
-			sectionOptions: [{ label: "Send Feedback" }],
-			action: () => setFeedbackModalOpen(true),
+			sectionOptions: [
+				{ label: "Send Feedback", action: () => setFeedbackModalOpen(true) },
+			],
 		},
 		// {
 		// 	sectionName: "Intake Presets",
@@ -167,11 +178,6 @@ const Settings = () => {
 			</View>
 			<SignOutCard />
 
-			<Button
-				title="Open modal"
-				onPress={() => setDailyGoalModalOpen(true)}
-			></Button>
-
 			<>
 				<SettingsModal
 					id="Unit of Measurement"
@@ -213,7 +219,7 @@ const Settings = () => {
 					id="Feeback & Support"
 					isOpen={feedbackModalOpen}
 				>
-					<IntakeHistory setFeedbackModalOpen={setFeedbackModalOpen} />
+					<Feedback setFeedbackModalOpen={setFeedbackModalOpen} />
 				</SettingsModal>
 			</>
 		</ScrollView>
