@@ -1,6 +1,5 @@
 import { View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { dailyGoal } from "../../constants";
 import RingProgress from "../../components/RingProgress";
 import Stats from "../../components/Stats";
 import IntakePresets from "../../components/IntakePresets";
@@ -79,7 +78,7 @@ const Home = ({ navigation }) => {
 				<RingProgress
 					radius={150}
 					strokeWidth={50}
-					progress={currentIntake / dailyGoal}
+					progress={currentIntake / currentGoal}
 					canAddIntake={canAddIntake}
 				/>
 
