@@ -112,7 +112,10 @@ const Settings = () => {
 	};
 
 	return (
-		<ScrollView className="h-auto bg-sky-200 pt-24">
+		<ScrollView
+			scrollEnabled={true}
+			className="bg-sky-200 pt-24"
+		>
 			<View className="flex flex-col justify-between px-8 py-4 ">
 				<TouchableOpacity className="flex-row px-5 py-5 rounded-2xl bg-sky-100">
 					<View className="w-20 h-20">
