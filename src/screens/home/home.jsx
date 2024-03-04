@@ -7,15 +7,14 @@ import Nav from "../../components/Nav";
 import { SafeAreaView } from "react-native-safe-area-context";
 import PresetToggleButton from "../../components/PresetToggleButton";
 import { db, firebaseAuth } from "../../../configurations/firebase/firebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
-
-// TODO: Add functionality to update the user's intake history in the database when the user adds or removes intake
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 const Home = ({ navigation }) => {
 	const [currentIntake, setCurrentIntake] = useState(0);
 	const [canAddIntake, setCanAddIntake] = useState(true);
 	const [userInformation, setUserInformation] = useState(null);
 	const [currentGoal, setCurrentGoal] = useState(0);
+	const [currentDate, setCurrentDate] = useState("10-20-2024");
 	const auth = firebaseAuth;
 
 	useEffect(() => {
@@ -25,6 +24,7 @@ const Home = ({ navigation }) => {
 
 	const updateIntakes = () => {
 		setCurrentGoal(userInformation?.goals.daily ?? 0);
+		setCurrentIntake(currentGoal < currentIntake ? currentGoal : currentIntake);
 	};
 
 	const getUserInformation = async () => {
@@ -52,6 +52,28 @@ const Home = ({ navigation }) => {
 			currentIntake - decrementValue < 0 ? 0 : currentIntake - decrementValue
 		);
 	};
+
+	const updateProgressHistory = async (uid) => {
+		const getCurrentDate = () => {
+			const date = new Date();
+			const year = date.getFullYear();
+			const month = date.getMonth() + 1;
+			const day = date.getDate();
+
+			const currentDate = `${month}-${day}-${year}`;
+			setCurrentDate(currentDate);
+		};
+
+		getCurrentDate();
+
+		await updateDoc(doc(db, "history", uid), {
+			[currentDate]: { goal: currentGoal, progress: currentIntake },
+		});
+	};
+
+	useEffect(() => {
+		updateProgressHistory(auth.currentUser.uid);
+	}, [currentIntake, currentGoal]);
 
 	const updateCanAddIntake = () => setCanAddIntake(!canAddIntake);
 
