@@ -84,11 +84,9 @@ const Login = () => {
 			const userDocRef = doc(db, "history", user.user.uid);
 
 			const data = {
-				history: {
-					[currentDate]: {
-						goal: defaultDailyGoal,
-						progress: 0,
-					},
+				[currentDate]: {
+					goal: defaultDailyGoal,
+					progress: 0,
 				},
 			};
 
