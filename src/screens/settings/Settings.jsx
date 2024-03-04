@@ -13,12 +13,13 @@ import {
 	NotificationPreference,
 	Feedback,
 } from "../../components/settings";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const blurhash =
 	"|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
 
 // TODO: Add intake presets editing
-const Settings = () => {
+const Settings = ({ navigation }) => {
 	const [userInformation, setUserInformation] = useState(null);
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
@@ -112,120 +113,126 @@ const Settings = () => {
 	};
 
 	return (
-		<ScrollView
-			scrollEnabled={true}
-			className="bg-sky-200 pt-24"
-		>
-			<View className="flex flex-col justify-between px-8 py-4 ">
-				<TouchableOpacity className="flex-row px-5 py-5 rounded-2xl bg-sky-100">
-					<View className="w-20 h-20">
-						<Image
-							source={require("../../../assets/Images/profile.jpeg")}
-							placeholder={blurhash}
-							className="rounded-full w-full h-full"
-						/>
-					</View>
-					<View className="ml-5">
-						<Text className="text-xl">
-							{firstName} {lastName}
-						</Text>
-						<Text>
-							Thank you for using Water Pal{"\n"}
-							Please send feedback to bryanansong2003@gmail.com
-						</Text>
-					</View>
-				</TouchableOpacity>
-
-				<View className="flex flex-col">
-					{settings.map((setting) => (
-						<View
-							key={setting.sectionName}
-							className="mt-5"
-						>
-							<Text className="text-xl mb-3">
-								{setting.sectionName}
-							</Text>
-							<View className="flex-col px-5 py-3 rounded-2xl bg-sky-100">
-								{setting.sectionOptions.map(
-									(option, index, array) => (
-										<TouchableOpacity
-											key={option.label}
-											className={`px-3 py-2 rounded-lg ${
-												index === array.length - 1
-													? ""
-													: "border-b-[1px] border-slate-400/40"
-											}`}
-											onPress={
-												option.action
-													? option.action
-													: () => {}
-											}
-										>
-											<View className="flex-row justify-between">
-												<Text className="">
-													{option.label}
-												</Text>
-												<Text className="text-blue-800">
-													{option.value
-														? option.value
-														: "Coming Soon"}
-												</Text>
-											</View>
-										</TouchableOpacity>
-									)
-								)}
-							</View>
+		<SafeAreaView className="flex-1 bg-sky-200 pt-10">
+			<ScrollView
+				scrollEnabled={true}
+				className="bg-sky-200"
+			>
+				<View className="flex flex-col justify-between px-8 py-4 ">
+					<TouchableOpacity
+						className="flex-row px-5 py-5 rounded-2xl bg-sky-100"
+						// TODO: Change the navigation to the profile page when it is ready
+						onPress={() => navigation.navigate("Profile_placeholder")}
+					>
+						<View className="w-20 h-20">
+							<Image
+								source={require("../../../assets/Images/profile.jpeg")}
+								placeholder={blurhash}
+								className="rounded-full w-full h-full"
+							/>
 						</View>
-					))}
-				</View>
-			</View>
-			<SignOutCard />
+						<View className="ml-5">
+							<Text className="text-xl">
+								{firstName} {lastName}
+							</Text>
+							<Text>
+								Thank you for using Water Pal{"\n"}
+								Please send feedback to bryanansong2003@gmail.com
+							</Text>
+						</View>
+					</TouchableOpacity>
 
-			<>
-				<SettingsModal
-					id="Unit of Measurement"
-					isOpen={unitsModalOpen}
-				>
-					<Unit setUnitsModalOpen={setUnitsModalOpen} />
-				</SettingsModal>
-				<SettingsModal
-					id="Daily Goal"
-					isOpen={dailyGoalModalOpen}
-				>
-					<DailyGoal setDailyGoalModalOpen={setDailyGoalModalOpen} />
-				</SettingsModal>
-				<SettingsModal
-					id="Reminder"
-					isOpen={remindersModalOpen}
-				>
-					<Reminder setRemindersModalOpen={setRemindersModalOpen} />
-				</SettingsModal>
-				<SettingsModal
-					id="Notification Preferences"
-					isOpen={notificationPreferenceModalOpen}
-				>
-					<NotificationPreference
-						setNotificationPreferenceModalOpen={
-							setNotificationPreferenceModalOpen
-						}
-					/>
-				</SettingsModal>
-				<SettingsModal
-					id="Intake history"
-					isOpen={intakeHistoryModalOpen}
-				>
-					<IntakeHistory
-						setIntakeHistoryModalOpen={setIntakeHistoryModalOpen}
-					/>
-				</SettingsModal>
-				<SettingsModal
-					id="Feeback & Support"
-					isOpen={feedbackModalOpen}
-				>
-					<Feedback setFeedbackModalOpen={setFeedbackModalOpen} />
-				</SettingsModal>
-			</>
-		</ScrollView>
+					<View className="flex flex-col">
+						{settings.map((setting) => (
+							<View
+								key={setting.sectionName}
+								className="mt-5"
+							>
+								<Text className="text-xl mb-3">
+									{setting.sectionName}
+								</Text>
+								<View className="flex-col px-5 py-3 rounded-2xl bg-sky-100">
+									{setting.sectionOptions.map(
+										(option, index, array) => (
+											<TouchableOpacity
+												key={option.label}
+												className={`px-3 py-2 rounded-lg ${
+													index === array.length - 1
+														? ""
+														: "border-b-[1px] border-slate-400/40"
+												}`}
+												onPress={
+													option.action
+														? option.action
+														: () => {}
+												}
+											>
+												<View className="flex-row justify-between">
+													<Text className="">
+														{option.label}
+													</Text>
+													<Text className="text-blue-800">
+														{option.value
+															? option.value
+															: "Coming Soon"}
+													</Text>
+												</View>
+											</TouchableOpacity>
+										)
+									)}
+								</View>
+							</View>
+						))}
+					</View>
+				</View>
+				<SignOutCard />
+
+				<>
+					<SettingsModal
+						id="Unit of Measurement"
+						isOpen={unitsModalOpen}
+					>
+						<Unit setUnitsModalOpen={setUnitsModalOpen} />
+					</SettingsModal>
+					<SettingsModal
+						id="Daily Goal"
+						isOpen={dailyGoalModalOpen}
+					>
+						<DailyGoal setDailyGoalModalOpen={setDailyGoalModalOpen} />
+					</SettingsModal>
+					<SettingsModal
+						id="Reminder"
+						isOpen={remindersModalOpen}
+					>
+						<Reminder setRemindersModalOpen={setRemindersModalOpen} />
+					</SettingsModal>
+					<SettingsModal
+						id="Notification Preferences"
+						isOpen={notificationPreferenceModalOpen}
+					>
+						<NotificationPreference
+							setNotificationPreferenceModalOpen={
+								setNotificationPreferenceModalOpen
+							}
+						/>
+					</SettingsModal>
+					<SettingsModal
+						id="Intake history"
+						isOpen={intakeHistoryModalOpen}
+					>
+						<IntakeHistory
+							setIntakeHistoryModalOpen={setIntakeHistoryModalOpen}
+						/>
+					</SettingsModal>
+					<SettingsModal
+						id="Feeback & Support"
+						isOpen={feedbackModalOpen}
+					>
+						<Feedback setFeedbackModalOpen={setFeedbackModalOpen} />
+					</SettingsModal>
+				</>
+			</ScrollView>
+		</SafeAreaView>
 	);
 };
 
