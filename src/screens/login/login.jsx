@@ -6,8 +6,7 @@ import {
 	Button,
 	KeyboardAvoidingView,
 } from "react-native";
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
@@ -15,7 +14,6 @@ import {
 import { db, firebaseAuth } from "../../../configurations/firebase/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 
-// TODO: Create a history document in the history collection for the user when the user signs up
 const Login = () => {
 	const [firstName, setFirstName] = useState("Bryan");
 	const [lastName, setLastName] = useState("Ansong");
@@ -23,6 +21,8 @@ const Login = () => {
 	const [email, setEmail] = useState("bryansong2003@gmail.com");
 	const [password, setPassword] = useState("ferwac-4Tofgu-cebjov");
 	const [loading, setLoading] = useState(false);
+	const [defaultDailyGoal, setDefaultDailyGoal] = useState(2000);
+	const [currentDate, setCurrentDate] = useState("10-20-2024");
 	const auth = firebaseAuth;
 
 	const signIn = async () => {
@@ -42,6 +42,7 @@ const Login = () => {
 		try {
 			const user = await createUserWithEmailAndPassword(auth, email, password);
 			createUserInDatabase(user);
+			createHistoryDocument(user);
 		} catch (error) {
 			console.log(error);
 			alert("Registration Error: " + error.message);
@@ -66,8 +67,28 @@ const Login = () => {
 				},
 				goals: {
 					unit: "milliliters",
-					daily: 2000,
+					daily: defaultDailyGoal,
 					weekly: 14000,
+				},
+				history: doc(db, "history", user.user.uid),
+			};
+
+			await setDoc(userDocRef, data);
+		} catch (error) {
+			console.error("Error adding document: ", error);
+		}
+	};
+
+	const createHistoryDocument = async (user) => {
+		try {
+			const userDocRef = doc(db, "history", user.user.uid);
+
+			const data = {
+				history: {
+					[currentDate]: {
+						goal: defaultDailyGoal,
+						progress: 0,
+					},
 				},
 			};
 
@@ -76,6 +97,20 @@ const Login = () => {
 			console.error("Error adding document: ", error);
 		}
 	};
+
+	const getCurrentDate = async () => {
+		const date = new Date();
+		const year = date.getFullYear();
+		const month = date.getMonth() + 1;
+		const day = date.getDate();
+
+		const currentDate = `${month}-${day}-${year}`;
+		setCurrentDate(currentDate);
+	};
+
+	useEffect(() => {
+		getCurrentDate();
+	}, []);
 
 	return (
 		<View className="flex flex-1 justify-center px-6">
