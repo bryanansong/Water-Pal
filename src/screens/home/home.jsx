@@ -9,6 +9,8 @@ import PresetToggleButton from "../../components/PresetToggleButton";
 import { db, firebaseAuth } from "../../../configurations/firebase/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 
+// TODO: Add functionality to update the user's intake history in the database when the user adds or removes intake
+
 const Home = ({ navigation }) => {
 	const [currentIntake, setCurrentIntake] = useState(0);
 	const [canAddIntake, setCanAddIntake] = useState(true);
