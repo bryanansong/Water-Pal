@@ -12,12 +12,10 @@ import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 } from "@firebase/auth";
-import {
-	db,
-	firebaseAuth,
-} from "../../../configurations/firebase/firebaseConfig";
+import { db, firebaseAuth } from "../../../configurations/firebase/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 
+// TODO: Create a history document in the history collection for the user when the user signs up
 const Login = () => {
 	const [firstName, setFirstName] = useState("Bryan");
 	const [lastName, setLastName] = useState("Ansong");
@@ -42,11 +40,7 @@ const Login = () => {
 	const signUp = async () => {
 		setLoading(true);
 		try {
-			const user = await createUserWithEmailAndPassword(
-				auth,
-				email,
-				password
-			);
+			const user = await createUserWithEmailAndPassword(auth, email, password);
 			createUserInDatabase(user);
 		} catch (error) {
 			console.log(error);
