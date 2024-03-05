@@ -35,6 +35,7 @@ const Settings = () => {
 		useState(false);
 	const [intakeHistoryModalOpen, setIntakeHistoryModalOpen] = useState(false);
 	const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
+	const [userHistory, setUserHistory] = useState([]);
 
 	// Settings Sections
 	const settings = [
@@ -92,7 +93,13 @@ const Settings = () => {
 	useEffect(() => {
 		getUserInformation();
 		updatePreferences();
+		getIntakefromDatabase();
 	}, [userInformation]);
+
+	const getIntakefromDatabase = async () => {
+		const docSnap = await getDoc(doc(db, "history", auth.currentUser.uid));
+		setUserHistory(docSnap.data());
+	};
 
 	const updatePreferences = () => {
 		setDailyGoal(userInformation?.goals.daily ?? 0);
@@ -201,6 +208,7 @@ const Settings = () => {
 				>
 					<IntakeHistory
 						setIntakeHistoryModalOpen={setIntakeHistoryModalOpen}
+						userHistory={userHistory}
 					/>
 				</SettingsModal>
 				<SettingsModal
