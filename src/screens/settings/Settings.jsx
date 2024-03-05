@@ -54,6 +54,17 @@ const Settings = () => {
 			],
 		},
 		{
+			sectionName: "Progress & Tracking",
+			sectionOptions: [
+				{
+					label: "Water Intake History",
+					value: " ",
+					action: () => setIntakeHistoryModalOpen(true),
+				},
+				{ label: "Achievement Badges" },
+			],
+		},
+		{
 			sectionName: "Reminders",
 			sectionOptions: [
 				{
@@ -64,16 +75,6 @@ const Settings = () => {
 					label: "Notification Preferences",
 					action: () => setNotificationPreferenceModalOpen(true),
 				},
-			],
-		},
-		{
-			sectionName: "Progress & Tracking",
-			sectionOptions: [
-				{
-					label: "Water Intake History",
-					action: () => setIntakeHistoryModalOpen(true),
-				},
-				{ label: "Achievement Badges" },
 			],
 		},
 		{
@@ -195,6 +196,14 @@ const Settings = () => {
 					<DailyGoal setDailyGoalModalOpen={setDailyGoalModalOpen} />
 				</SettingsModal>
 				<SettingsModal
+					id="Intake history"
+					isOpen={intakeHistoryModalOpen}
+				>
+					<IntakeHistory
+						setIntakeHistoryModalOpen={setIntakeHistoryModalOpen}
+					/>
+				</SettingsModal>
+				<SettingsModal
 					id="Reminder"
 					isOpen={remindersModalOpen}
 				>
@@ -208,14 +217,6 @@ const Settings = () => {
 						setNotificationPreferenceModalOpen={
 							setNotificationPreferenceModalOpen
 						}
-					/>
-				</SettingsModal>
-				<SettingsModal
-					id="Intake history"
-					isOpen={intakeHistoryModalOpen}
-				>
-					<IntakeHistory
-						setIntakeHistoryModalOpen={setIntakeHistoryModalOpen}
 					/>
 				</SettingsModal>
 				<SettingsModal
