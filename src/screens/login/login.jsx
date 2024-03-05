@@ -14,6 +14,7 @@ import {
 import { db, firebaseAuth } from "../../../configurations/firebase/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 
+// TODO: Fix bug where the data for the current date is overwritten each time the app is opened
 const Login = () => {
 	const [firstName, setFirstName] = useState("Bryan");
 	const [lastName, setLastName] = useState("Ansong");
