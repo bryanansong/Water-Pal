@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "../../login/login";
-import SignUp from "../../signup/SignUp";
 import InsideNavigation from "../insideNavigation/insideNavigation";
+import Signup from "../../signup/SignUp.jsx";
 
 const OutsideNavigation = () => {
 	const Stack = createNativeStackNavigator();
@@ -18,7 +18,7 @@ const OutsideNavigation = () => {
 			/>
 			<Stack.Screen
 				name="Signup"
-				component={SignUp}
+				component={Signup}
 			/>
 			<Stack.Screen
 				name="InsideNavigation"
