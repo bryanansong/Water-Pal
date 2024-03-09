@@ -36,7 +36,7 @@ const RingProgress = ({
 	};
 
 	useEffect(() => {
-		fill.value = withTiming(progress, { duration: 900 });
+		fill.value = withTiming(progress, { duration: 700 });
 	}, [progress]);
 	const animatedProps = useAnimatedProps(() => ({
 		strokeDasharray: [circumference * fill.value, circumference],
