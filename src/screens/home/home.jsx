@@ -10,21 +10,23 @@ import { db, firebaseAuth } from "../../../configurations/firebase/firebaseConfi
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 const Home = ({ navigation }) => {
-	const [currentIntake, setCurrentIntake] = useState(0);
 	const [canAddIntake, setCanAddIntake] = useState(true);
 	const [userInformation, setUserInformation] = useState(null);
+	const [currentIntake, setCurrentIntake] = useState(0);
 	const [currentGoal, setCurrentGoal] = useState(0);
-	const [currentDate, setCurrentDate] = useState("10-20-2024");
+	const [currentDate, setCurrentDate] = useState("1-1-2024");
 	const auth = firebaseAuth;
 
-	useEffect(() => {
-		getUserInformation();
-		updateIntakes();
-	}, [currentIntake, userInformation, currentGoal, auth, canAddIntake]);
+	const getCurrentIntake = async () => {
+		try {
+			const receivedInformation = await getDoc(
+				doc(db, "history", auth.currentUser.uid)
+			);
 
-	const updateIntakes = () => {
-		setCurrentGoal(userInformation?.goals.daily ?? 0);
-		setCurrentIntake(currentGoal < currentIntake ? currentGoal : currentIntake);
+			setCurrentIntake(receivedInformation.data()[currentDate].progress);
+		} catch (e) {
+			console.error(e);
+		}
 	};
 
 	const getUserInformation = async () => {
@@ -72,8 +74,17 @@ const Home = ({ navigation }) => {
 	};
 
 	useEffect(() => {
+		getUserInformation();
+	}, []);
+
+	useEffect(() => {
+		setCurrentGoal(userInformation?.goals.daily ?? 0);
+		getCurrentIntake();
+	}, [currentIntake, userInformation, currentGoal, auth, canAddIntake]);
+
+	useEffect(() => {
 		updateProgressHistory(auth.currentUser.uid);
-	}, [currentIntake, currentGoal]);
+	}, [currentIntake]);
 
 	const updateCanAddIntake = () => setCanAddIntake(!canAddIntake);
 
@@ -84,14 +95,14 @@ const Home = ({ navigation }) => {
 			<View className="flex flex-col flex-1 items-center mt-5 bg-sky-200">
 				<Stats
 					goal={currentGoal}
-					progress={currentIntake}
+					progress={currentIntake ? currentIntake : 0}
 					remaining={currentGoal - currentIntake}
 				/>
 
 				<RingProgress
 					radius={150}
 					strokeWidth={50}
-					progress={currentIntake / currentGoal}
+					progress={(currentIntake ? currentIntake : 0) / currentGoal}
 					canAddIntake={canAddIntake}
 				/>
 
