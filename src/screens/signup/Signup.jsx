@@ -3,23 +3,24 @@ import {
 	Text,
 	TextInput,
 	ActivityIndicator,
-	Button,
 	KeyboardAvoidingView,
+	TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword } from "@firebase/auth";
 import { db, firebaseAuth } from "../../../configurations/firebase/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 
-const SignUp = () => {
-	const [firstName, setFirstName] = useState("Bryan");
-	const [lastName, setLastName] = useState("Ansong");
-	const [username, setUsername] = useState("bryanansong");
-	const [email, setEmail] = useState("bryansong2003@gmail.com");
-	const [password, setPassword] = useState("ferwac-4Tofgu-cebjov");
+const SignUp = ({ navigation }) => {
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [username, setUsername] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+
 	const [loading, setLoading] = useState(false);
 	const [defaultDailyGoal, setDefaultDailyGoal] = useState(2000);
-	const [currentDate, setCurrentDate] = useState("10-20-2024");
+	const [currentDate, setCurrentDate] = useState("1-1-2024");
 	const auth = firebaseAuth;
 
 	const signUp = async () => {
@@ -30,7 +31,9 @@ const SignUp = () => {
 			createHistoryDocument(user);
 		} catch (error) {
 			console.log(error);
-			alert("Registration Error: " + error.message);
+			alert(
+				"There was an error creating your account. Please check your information and try again 😊"
+			);
 		} finally {
 			setLoading(false);
 		}
@@ -98,55 +101,52 @@ const SignUp = () => {
 	return (
 		<View className="flex flex-1 justify-center px-6">
 			<KeyboardAvoidingView behavior="padding">
-				<Text>SignUp</Text>
+				<Text className="text-center font-light text-6xl tracking-widest mb-16">
+					Sign Up
+				</Text>
 				<View className="flex-row gap-3 w-full">
-					<View className="flex-1">
-						<Text>First Name</Text>
+					<View className="bg-black/5 p-5 rounded-2xl flex-1 mb-5">
 						<TextInput
 							value={firstName}
 							onChangeText={setFirstName}
-							placeholder="User Name"
-							autoCapitalize="none"
+							placeholder="First Name"
+							autoCapitalize="words"
 							onChange={(text) => setFirstName(text)}
-							className="border border-gray-300 rounded-lg p-2"
+							className=""
 						/>
 					</View>
-					<View className="flex-1">
-						<Text>Last Name</Text>
+					<View className="bg-black/5 p-5 rounded-2xl flex-1 mb-5">
 						<TextInput
 							value={lastName}
 							onChangeText={setLastName}
-							placeholder="User Name"
-							autoCapitalize="none"
+							placeholder="Last Name"
+							autoCapitalize="words"
 							onChange={(text) => setLastName(text)}
-							className="border border-gray-300 rounded-lg p-2"
+							className=""
 						/>
 					</View>
 				</View>
-				<View>
-					<Text>User Name</Text>
+				<View className="bg-black/5 p-5 rounded-2xl w-full mb-5">
 					<TextInput
 						value={username}
 						onChangeText={setUsername}
 						placeholder="User Name"
 						autoCapitalize="none"
 						onChange={(text) => setUsername(text)}
-						className="border border-gray-300 rounded-lg p-2"
+						className=""
 					/>
 				</View>
-				<View>
-					<Text>Email</Text>
+				<View className="bg-black/5 p-5 rounded-2xl w-full mb-5">
 					<TextInput
 						value={email}
 						onChangeText={setEmail}
 						placeholder="Email"
 						autoCapitalize="none"
 						onChange={(text) => setEmail(text)}
-						className="border border-gray-300 rounded-lg p-2"
+						className=""
 					/>
 				</View>
-				<View>
-					<Text>Password</Text>
+				<View className="bg-black/5 p-5 rounded-2xl w-full mb-5">
 					<TextInput
 						value={password}
 						onChangeText={setPassword}
@@ -154,7 +154,7 @@ const SignUp = () => {
 						secureTextEntry={true}
 						autoCapitalize="none"
 						onChange={(text) => setPassword(text)}
-						className="border border-gray-300 rounded-lg p-2"
+						className=""
 					/>
 				</View>
 
@@ -165,12 +165,27 @@ const SignUp = () => {
 					/>
 				) : (
 					<>
-						<Button
+						<TouchableOpacity
 							onPress={signUp}
-							title="Create Account"
-						></Button>
+							title=""
+							className="w-full bg-sky-400 p-3 mb-5 rounded-2xl"
+						>
+							<Text className="text-xl font-bold text-white text-center">
+								Create Account
+							</Text>
+						</TouchableOpacity>
 					</>
 				)}
+				<View className="flex-row justify-center">
+					<Text className="text-lg font-light">
+						Already have an account?{"  "}
+					</Text>
+					<TouchableOpacity onPress={() => navigation.navigate("Login")}>
+						<Text className="text-blue-600 text-lg font-light">
+							Sign In
+						</Text>
+					</TouchableOpacity>
+				</View>
 			</KeyboardAvoidingView>
 		</View>
 	);
