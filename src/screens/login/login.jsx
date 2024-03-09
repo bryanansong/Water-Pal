@@ -3,27 +3,18 @@ import {
 	Text,
 	TextInput,
 	ActivityIndicator,
-	Button,
 	KeyboardAvoidingView,
+	TouchableOpacity,
+	Image,
 } from "react-native";
-import React, { useEffect, useState } from "react";
-import {
-	createUserWithEmailAndPassword,
-	signInWithEmailAndPassword,
-} from "@firebase/auth";
-import { db, firebaseAuth } from "../../../configurations/firebase/firebaseConfig";
-import { doc, setDoc } from "firebase/firestore";
+import React, { useState } from "react";
+import { signInWithEmailAndPassword } from "@firebase/auth";
+import { firebaseAuth } from "../../../configurations/firebase/firebaseConfig";
 
-// TODO: Fix bug where the data for the current date is overwritten each time the app is opened
-const Login = () => {
-	const [firstName, setFirstName] = useState("Bryan");
-	const [lastName, setLastName] = useState("Ansong");
-	const [username, setUsername] = useState("bryanansong");
-	const [email, setEmail] = useState("bryansong2003@gmail.com");
-	const [password, setPassword] = useState("ferwac-4Tofgu-cebjov");
+const Login = ({ navigation }) => {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
-	const [defaultDailyGoal, setDefaultDailyGoal] = useState(2000);
-	const [currentDate, setCurrentDate] = useState("10-20-2024");
 	const auth = firebaseAuth;
 
 	const signIn = async () => {
@@ -32,136 +23,36 @@ const Login = () => {
 			await signInWithEmailAndPassword(auth, email, password);
 		} catch (error) {
 			console.log(error);
-			alert("Invalid email or password");
+			alert(
+				"Hi there! There was an error signing in. Please check your information and try again! 😊"
+			);
 		} finally {
 			setLoading(false);
 		}
 	};
-
-	const signUp = async () => {
-		setLoading(true);
-		try {
-			const user = await createUserWithEmailAndPassword(auth, email, password);
-			createUserInDatabase(user);
-			createHistoryDocument(user);
-		} catch (error) {
-			console.log(error);
-			alert("Registration Error: " + error.message);
-		} finally {
-			setLoading(false);
-		}
-	};
-
-	const createUserInDatabase = async (user) => {
-		try {
-			const userDocRef = doc(db, "users", user.user.uid);
-
-			const data = {
-				userInfo: {
-					uid: user.user.uid,
-					username: username,
-					name: {
-						first: firstName,
-						last: lastName,
-					},
-					email: email,
-				},
-				goals: {
-					unit: "milliliters",
-					daily: defaultDailyGoal,
-					weekly: 14000,
-				},
-				history: doc(db, "history", user.user.uid),
-			};
-
-			await setDoc(userDocRef, data);
-		} catch (error) {
-			console.error("Error adding document: ", error);
-		}
-	};
-
-	const createHistoryDocument = async (user) => {
-		try {
-			const userDocRef = doc(db, "history", user.user.uid);
-
-			const data = {
-				[currentDate]: {
-					goal: defaultDailyGoal,
-					progress: 0,
-				},
-			};
-
-			await setDoc(userDocRef, data);
-		} catch (error) {
-			console.error("Error adding document: ", error);
-		}
-	};
-
-	const getCurrentDate = async () => {
-		const date = new Date();
-		const year = date.getFullYear();
-		const month = date.getMonth() + 1;
-		const day = date.getDate();
-
-		const currentDate = `${month}-${day}-${year}`;
-		setCurrentDate(currentDate);
-	};
-
-	useEffect(() => {
-		getCurrentDate();
-	}, []);
 
 	return (
-		<View className="flex flex-1 justify-center px-6">
+		<View className="flex flex-1 justify-center  mx-4">
 			<KeyboardAvoidingView behavior="padding">
-				<View className="flex-row gap-3 w-full">
-					<View className="flex-1">
-						<Text>First Name</Text>
-						<TextInput
-							value={firstName}
-							onChangeText={setFirstName}
-							placeholder="User Name"
-							autoCapitalize="none"
-							onChange={(text) => setFirstName(text)}
-							className="border border-gray-300 rounded-lg p-2"
-						/>
-					</View>
-					<View className="flex-1">
-						<Text>Last Name</Text>
-						<TextInput
-							value={lastName}
-							onChangeText={setLastName}
-							placeholder="User Name"
-							autoCapitalize="none"
-							onChange={(text) => setLastName(text)}
-							className="border border-gray-300 rounded-lg p-2"
-						/>
-					</View>
-				</View>
-				<View>
-					<Text>User Name</Text>
-					<TextInput
-						value={username}
-						onChangeText={setUsername}
-						placeholder="User Name"
-						autoCapitalize="none"
-						onChange={(text) => setUsername(text)}
-						className="border border-gray-300 rounded-lg p-2"
-					/>
-				</View>
-				<View>
-					<Text>Email</Text>
+				<Image
+					className="rounded-full h-40 w-40 mx-auto mb-5"
+					source={require("../../../assets/Images/WaterPalLogo.jpeg")}
+				/>
+				<Text className="text-center font-light text-6xl tracking-widest mb-10">
+					Sign In
+				</Text>
+				<View className="bg-black/5 p-5 rounded-2xl w-full mb-5">
 					<TextInput
 						value={email}
 						onChangeText={setEmail}
 						placeholder="Email"
 						autoCapitalize="none"
 						onChange={(text) => setEmail(text)}
-						className="border border-gray-300 rounded-lg p-2"
+						placeholderTextColor={"gray"}
+						className="text-black"
 					/>
 				</View>
-				<View>
-					<Text>Password</Text>
+				<View className="bg-black/5 p-5 rounded-2xl w-full mb-5">
 					<TextInput
 						value={password}
 						onChangeText={setPassword}
@@ -169,27 +60,41 @@ const Login = () => {
 						secureTextEntry={true}
 						autoCapitalize="none"
 						onChange={(text) => setPassword(text)}
-						className="border border-gray-300 rounded-lg p-2"
+						placeholderTextColor={"gray"}
+						className="text-black"
 					/>
 				</View>
 
-				{loading ? (
-					<ActivityIndicator
-						size="large"
-						color="#0000ff"
-					/>
-				) : (
-					<>
-						<Button
-							onPress={signIn}
-							title="Sign In"
-						></Button>
-						<Button
-							onPress={signUp}
-							title="Create Account"
-						></Button>
-					</>
-				)}
+				<View className="flex gap-3 w-full">
+					{loading ? (
+						<ActivityIndicator
+							size="large"
+							color="#0000ff"
+						/>
+					) : (
+						<>
+							<TouchableOpacity
+								onPress={signIn}
+								title=""
+								className="w-full bg-sky-400 p-3 mb-5 rounded-2xl"
+							>
+								<Text className="text-xl font-bold text-white text-center">
+									Sign In
+								</Text>
+							</TouchableOpacity>
+						</>
+					)}
+				</View>
+				<View className="flex-row justify-center">
+					<Text className="text-lg font-light">
+						Don't have an account?{"  "}
+					</Text>
+					<TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+						<Text className="text-blue-600 text-lg font-light">
+							Sign Up
+						</Text>
+					</TouchableOpacity>
+				</View>
 			</KeyboardAvoidingView>
 		</View>
 	);

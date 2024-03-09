@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import InsideNavigation from "./src/screens/navigation/insideNavigation/insideNavigation";
 import { onAuthStateChanged } from "@firebase/auth";
 import { firebaseAuth } from "./configurations/firebase/firebaseConfig";
+import OutsideNavigation from "./src/screens/navigation/outsideNavigation/OutsideNavigation";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +29,7 @@ export default function App() {
 
 	return (
 		<NavigationContainer>
-			<Stack.Navigator initialRouteName="Login">
+			<Stack.Navigator initialRouteName="OutsideNavigation">
 				{user ? (
 					<Stack.Screen
 						name="InsideNavigation"
@@ -37,8 +38,8 @@ export default function App() {
 					/>
 				) : (
 					<Stack.Screen
-						name="Login"
-						component={Login}
+						name="OutsideNavigation"
+						component={OutsideNavigation}
 						options={{ headerShown: false }}
 					/>
 				)}
