@@ -10,21 +10,31 @@ import { db, firebaseAuth } from "../../../configurations/firebase/firebaseConfi
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 const Home = ({ navigation }) => {
-	const [currentIntake, setCurrentIntake] = useState(0);
 	const [canAddIntake, setCanAddIntake] = useState(true);
 	const [userInformation, setUserInformation] = useState(null);
+	const [currentIntake, setCurrentIntake] = useState(0);
 	const [currentGoal, setCurrentGoal] = useState(0);
 	const [currentDate, setCurrentDate] = useState("10-20-2024");
 	const auth = firebaseAuth;
 
-	useEffect(() => {
-		getUserInformation();
-		updateIntakes();
-	}, [currentIntake, userInformation, currentGoal, auth, canAddIntake]);
+	// TODO: On first load, get user information and update variables
 
 	const updateIntakes = () => {
 		setCurrentGoal(userInformation?.goals.daily ?? 0);
+		getCurrentIntake();
 		setCurrentIntake(currentGoal < currentIntake ? currentGoal : currentIntake);
+	};
+
+	const getCurrentIntake = async () => {
+		try {
+			const receivedInformation = await getDoc(
+				doc(db, "history", auth.currentUser.uid)
+			);
+
+			setCurrentIntake(receivedInformation.data()[currentDate].progress);
+		} catch (e) {
+			console.error(e);
+		}
 	};
 
 	const getUserInformation = async () => {
@@ -61,7 +71,8 @@ const Home = ({ navigation }) => {
 			const day = date.getDate();
 
 			const currentDate = `${month}-${day}-${year}`;
-			setCurrentDate(currentDate);
+			// setCurrentDate(currentDate);
+			setCurrentDate("3-7-2024");
 		};
 
 		getCurrentDate();
@@ -70,6 +81,11 @@ const Home = ({ navigation }) => {
 			[currentDate]: { goal: currentGoal, progress: currentIntake },
 		});
 	};
+
+	useEffect(() => {
+		getUserInformation();
+		updateIntakes();
+	}, [currentIntake, userInformation, currentGoal, auth, canAddIntake]);
 
 	useEffect(() => {
 		updateProgressHistory(auth.currentUser.uid);
